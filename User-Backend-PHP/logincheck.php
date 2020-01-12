@@ -1,8 +1,14 @@
 <?
 //12 Ocak 2020 HCTP180 Çalgan Aygün
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-require_once('database.php');
+
+require_once('database.php'); //Veritabanı bilgileri içeri alındı.
+
+/**
+checkToken fonksiyonu ile diğer sayfalarda token doğruluğu test edildi.
+Token'in token listeisnde bulunup bulunmadığı zamanının dolup dolmadığı test edildi.
+Token'in UserID ile eşleştirilip başka kullanıcı için işlem yapması engellendi.
+**/
+
 
 function checkToken($token, $userid){
 	global $db;

@@ -1,11 +1,11 @@
 <?
 
 //12 Ocak 2020 HCTP180 Çalgan Aygün
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-require_once('database.php');
-include('logincheck.php');
 
+require_once('database.php'); // Veritabanı bağlantısı.
+include('logincheck.php'); // Token kontrolü için güvenlik fonksiyonlarını içeren dosya.
+
+// Gelen veriler değişkenlere aktarıldı.
 $age = $_POST["age"];
 $sex = $_POST["sex"];
 $chest = $_POST["chest"];
@@ -24,11 +24,13 @@ $token = $_POST["token"];
 $userid = $_POST["userid"];
 
 
-if(checkToken($token, $userid)){
-	$query = $db->prepare("INSERT INTO `lastanalyzes`(`id`, `userid`, `age`, `sex`, `chest`, `rbp`, `sc`, `fbs`, `ecg`, `mxhr`, `angina`, `depression`, `peakexercise`, `floros`, `tales`, `time`)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-	$insert = $query->execute(array($userid, $age, $sex, $chest, $rbp, $sc, $fbs, $ecg, $mxhr, $angina, $depression, $peakexercise, $floros, $tales, $time));
+if(checkToken($token, $userid)){// Token kontrol edildi doğruysa işleme başlandı.
+	$query = $db->prepare("INSERT INTO `lastanalyzes`(`id`, `userid`, `age`, `sex`, `chest`, `rbp`, `sc`, `fbs`, `ecg`, `mxhr`, `angina`, `depression`, `peakexercise`, `floros`, `tales`, `time`)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); // Veritabanı sorgusu hazırlandı bu sayede gelecek SQL Injection saldırıları baaşrısız olacak.
+	$insert = $query->execute(array($userid, $age, $sex, $chest, $rbp, $sc, $fbs, $ecg, $mxhr, $angina, $depression, $peakexercise, $floros, $tales, $time)); // Sorgu gönderildi.
+
+	//MRICheck ML serverına CURL ile bağlanıp sorgu gerçekleştirilecek.
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "http://ml_server:5000/MRICheck");
+	curl_setopt($ch, CURLOPT_URL, "http://ml_server:5000/MRICheck"); //MRICheck Serverına bağlantı sağlandı.
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, true);
 
@@ -46,13 +48,13 @@ if(checkToken($token, $userid)){
 		'peakexercise' => $peakexercise, 
 		'floros' => $floros, 
 		'tales' => $tales, 
-	);
+	);// Veriler POST edilmek için hazırlandı.
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	$output = curl_exec($ch);
-	curl_close($ch);
-	$outJson = json_encode(array("prediction" => $output), JSON_PRETTY_PRINT);
+	curl_close($ch); //POST gönderildi ve gelen veri alındı.
+	$outJson = json_encode(array("prediction" => $output), JSON_PRETTY_PRINT); // Gelen veri JSON olarak ekrana yazdırıldı.
 	echo $outJson;
 }else{
-	http_response_code(400);
+	http_response_code(400); // Geçersiz istek gönderildi. Bu yüzden 400 kodu döndürüldü.
 	die;
 }

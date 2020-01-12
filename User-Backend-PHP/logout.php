@@ -1,8 +1,6 @@
 <?
 //12 Ocak 2020 HCTP180 Çalgan Aygün
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
 
 require_once('database.php');// Veritabanı bağlantılarımızı ve SQL Injection korumalarıızı alıyoruz.
 
@@ -12,9 +10,9 @@ $query = $db->query("SELECT * FROM utokens WHERE usertoken = '{$utoken}'")->fetc
 if($query){
 	$query = $db->prepare("DELETE FROM utokens WHERE usertoken = '{$utoken}'"); //Sorgulama True döndüyse token'i kaldırdık.
 	$update = $query->execute();
-	if ( $update ){// Eğer silindiyse 200 döndürüyoruz olamdıysa 400 ile Bad Request dönüyoruz.
+	if ( $update ){// Eğer silindiyse 200 dönerek işlemin başarılı olduğunu bildirdik.
 		http_response_code(200);
-	}else{
+	}else{// Eğer işlem sırasında sorun oluşmuşsa 400 dönerek Kötü İstek haberi veriyoruz.
 		http_response_code(400);
 	}
 }else{
