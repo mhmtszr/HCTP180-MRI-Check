@@ -10,6 +10,7 @@ import { slideHeight } from './slider/constants';
 import { View } from 'react-native';
 import { AreaChart, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
+import { Showcase } from '@src/components/common/showcase';
 
 interface ComponentProps {
   data: MenuListItemData[];
@@ -36,17 +37,19 @@ class MainPageComponent extends React.Component<Props> {
 
           </Slider>
         </View>
-        <View style={themedStyle.menuContainer}>
-          <AreaChart
-            style={{ height: 200 }}
-            data={chartData}
-            contentInset={{ top: 30, bottom: 30 }}
-            curve={shape.curveNatural}
-            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-          >
-            <Grid />
-          </AreaChart>
-        </View>
+        <Showcase>
+          <View style={themedStyle.menuContainer}>
+            <AreaChart
+              style={{ height: 200 }}
+              data={chartData}
+              contentInset={{ top: 30, bottom: 30 }}
+              curve={shape.curveNatural}
+              svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+            >
+              <Grid />
+            </AreaChart>
+          </View>
+        </Showcase>
       </View>
 
     );

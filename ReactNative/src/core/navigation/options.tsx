@@ -29,7 +29,7 @@ export interface BottomNavigationParams extends NavigationParams {
 const translate = {
   "MainPage": "MRI Check",
   "Analyze": "Analiz",
-  'AnalyzeForm': 'Yeni Analiz',
+  'AnalyzeForm': 'Analiz Bilgileri',
   "Settings": "Ayarlar",
   "ChangePassword": "Şifre Değiştir",
 };

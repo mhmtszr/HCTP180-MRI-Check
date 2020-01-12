@@ -13,10 +13,6 @@ export class AnalyzeFormContainer extends React.Component<NavigationStackScreenP
         selectedLayoutIndex: 0,
     };
 
-    componentDidMount() {
-        console.log("hüloooo")
-    }
-
     private navigationKey: string = 'AnalyzeContainer';
 
     private onSave = () => {

@@ -1,4 +1,5 @@
 export const PATTERN_NAME: RegExp = /[a-z ,.'-]+/;
+export const PATTERN_NUMBER: RegExp = /\d+\.\d*|\.?\d+/;
 export const PATTERN_DOB: RegExp = /\d{1,2}\/\d{1,2}\/\d{4}/;
 export const PATTERN_EMAIL: RegExp = /\S+@\S+\.\S+/;
 export const PATTERN_PASSWORD: RegExp = /[a-z0-9]{8,}/;
@@ -11,6 +12,10 @@ export const PATTERN_FULLNAME: RegExp = /^$|^[a-zA-ZčČćĆđĐšŠžŽ-]+ [a-z
 
 export const NameValidator = (value: string): boolean => {
   return RegExpValidator(PATTERN_NAME, value);
+};
+
+export const NumberValidator = (value: string): boolean => {
+  return RegExpValidator(PATTERN_NUMBER, value);
 };
 
 export const DOBValidator = (value: string): boolean => {

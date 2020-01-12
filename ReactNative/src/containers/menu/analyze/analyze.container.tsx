@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Analyze } from './analyze.component';
-import { routes } from './routes';
 import { AnalyzeContainerData } from './type';
 
 interface State {
@@ -14,11 +13,6 @@ export class AnalyzeContainer extends React.Component<NavigationStackScreenProps
         selectedLayoutIndex: 0,
     };
 
-    componentDidMount() {
-        console.log("hüloooo")
-    }
-
-    private data = routes;
     private navigationKey: string = 'AnalyzeContainer';
 
     private onCreate = () => {
@@ -32,7 +26,8 @@ export class AnalyzeContainer extends React.Component<NavigationStackScreenProps
     public render(): React.ReactNode {
         return (
             <Analyze
-                data={this.data}
+                data={null}
+                isDataLoaded={false}
                 onCreate={this.onCreate}
                 onItemSelect={this.onItemSelect}
             ></Analyze>

@@ -12,13 +12,7 @@ import { isLoaded } from 'expo-font';
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
 const sliderBackground = [
-    'https://cdn4.vectorstock.com/i/1000x1000/12/33/flat-icon-with-long-shadow-child-playing-in-snow-vector-11741233.jpg',
-    'https://previews.123rf.com/images/gorovits/gorovits1708/gorovits170800476/83998512-flat-icon-with-long-shadow-child-playing-snow.jpg',
-    'https://previews.123rf.com/images/yupiramos/yupiramos1608/yupiramos160822599/61771493-cartoon-girl-school-icon-vector-illustration-design.jpg',
-    'https://cdn.vectorstock.com/i/1000x1000/20/67/flat-icon-with-long-shadow-child-playing-in-snow-vector-6822067.jpg',
-    'https://comps.canstockphoto.com/flat-icon-with-shadow-child-playing-eps-vectors_csp52930235.jpg',
-    'https://previews.123rf.com/images/vectorchef/vectorchef1503/vectorchef150301647/37648002-character-illustration-design-businessman-busy-cartoon.jpg'
-];
+    'https://hukuksokagi.com/wp-content/uploads/doktor.png'];
 
 const categoryKey = {
     'ADMIN': 'Yönetici',
@@ -50,7 +44,6 @@ class SliderComponent extends React.Component<ThemedComponentProps> implements C
         AsyncStorage.getItem('selectedDoctor').then(function (result) {
             if (result) {
                 var doctor = JSON.parse(result);
-                console.log(doctor)
                 var sliderItem = [];
                 var doc = {
                     title: doctor.name + " " + doctor.surname,
