@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "MRI Check",
+    "icon": "./src/assets/icons/icon.png",
+    "version": "0.0.1",
+    "slug": "mriCheck",
+    "sdkVersion": "35.0.0",
+    "privacy": "public",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "com.klc.mricheck",
+      "buildNumber": "0.0.1",
+      "infoPlist": {}
+    },
+    "android": {
+      "package": "com.klc.mricheck",
+      "versionCode": 9,
+      "permissions": []
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#FFFFFF"
+    },
+    "assetBundlePatterns": [
+      "src/assets/images/source/*",
+      "src/assets/fonts"
+    ],
+    "splash": {
+      "image": "src/assets/images/source/splash.png",
+      "resizeMode": "contain"
+    }
+  }
+}

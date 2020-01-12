@@ -1,0 +1,7 @@
+{
+  "name": "@src/core",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/react-native-loading-spinner-overlay": "^0.5.1"
+  }
+}
