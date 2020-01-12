@@ -43,7 +43,6 @@ End with an example of getting some data out of the system or using it for a lit
 * [Scikit-Sklearn](https://scikit-learn.org/stable/) - Python için kullanılan ML kütüphanesi.
 * [Flask](https://www.palletsprojects.com/p/flask/) - ML için RESTful API'ımızı oluştururken kullandığımız Python Web Framework'ü
 * [PHP](https://www.php.net/) - RESTful API yazmak için kullandığımız dil.
-* [Laravel](https://laravel.com/) - Web arayüzünü programalrken kullandığımız modern PHP Framework'ü.
 * [MySQL](https://rometools.github.io/rome/) - Verilerimizi depolamamızı sağlayan bir veri tabanı yönetim sistemi.
 * [Bootstrap](https://maven.apache.org/) - Web uygulamalarımızı geliştirmek için kullanılabilecek araçlar bütünü ve önyüz çatısı.
 
