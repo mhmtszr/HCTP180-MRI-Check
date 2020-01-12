@@ -46,19 +46,19 @@ export type AnalyzeProps = ThemedComponentProps & ComponentProps;
 class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
 
     public state: State = {
-        age: '1',
-        sex: 1,
-        chestPainType: 1,
-        restingBloodPressure: '1',
-        serumCholestrol: '1',
-        fastingBloodSugar: '1',
-        restingECG: 1,
-        maxHeartRate: '1',
-        exerciseInducedAngina: 1,
-        stDepression: '1',
-        peakExerciseSTSegment: 1,
-        numberOfMajorVessel: 1,
-        thal: 3,
+        age: '',
+        sex: null,
+        chestPainType: null,
+        restingBloodPressure: '',
+        serumCholestrol: '',
+        fastingBloodSugar: '',
+        restingECG: null,
+        maxHeartRate: '',
+        exerciseInducedAngina: null,
+        stDepression: '',
+        peakExerciseSTSegment: null,
+        numberOfMajorVessel: null,
+        thal: null,
         isModalVisible: false,
         success: null
     }
@@ -149,6 +149,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{ value: null, label: 'Lütfen birini seçiniz...' }}
                                 value={this.state.sex}
                                 onValueChange={(value) => this.onSelectionChange({ sex: value })}
                                 items={[{ value: 1, label: 'Erkek' }, { value: 0, label: 'Kadın' }]}
@@ -160,6 +161,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.chestPainType}
                                 onValueChange={(value) => this.setState({ chestPainType: value })}
                                 items={[{ value: 1, label: 'Tipik Anjin' }, { value: 2, label: 'Atipik Anjin' },
@@ -188,6 +190,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.fastingBloodSugar}
                                 onValueChange={(value) => this.setState({ fastingBloodSugar: value })}
                                 items={[{ value: 0, label: 'Hayır' }, { value: 1, label: 'Evet' }]}
@@ -199,6 +202,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.restingECG}
                                 onValueChange={(value) => this.setState({ restingECG: value })}
                                 items={[{ value: 0, label: 'Normal' }, { value: 1, label: 'ST-T Dalga Anormalliği' }, { value: 2, label: 'Sol Ventrikül Hiperrofisi' }]}
@@ -218,6 +222,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.exerciseInducedAngina}
                                 onValueChange={(value) => this.setState({ exerciseInducedAngina: value })}
                                 items={[{ value: 0, label: 'Hayır' }, { value: 1, label: 'Evet' }]}
@@ -238,6 +243,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.peakExerciseSTSegment}
                                 onValueChange={(value) => this.setState({ peakExerciseSTSegment: value })}
                                 items={[{ value: 1, label: 'Yukarı Doğru' }, { value: 2, label: 'Düz' }, { value: 3, label: 'Aşağı Doğru' }]}
@@ -249,6 +255,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.numberOfMajorVessel}
                                 onValueChange={(value) => this.setState({ numberOfMajorVessel: value })}
                                 items={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]}
@@ -260,6 +267,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                             <RNPickerSelect
                                 style={themedStyle.picker}
                                 disabled={disabled}
+                                placeholder={{value:null,label:'Lütfen birini seçiniz...'}}
                                 value={this.state.thal}
                                 onValueChange={(value) => this.setState({ thal: value })}
                                 items={[{ value: 3, label: 'Normal' }, { value: 6, label: 'Sabit Kusur' }, { value: 7, label: 'Tersinir Kusur' }]}

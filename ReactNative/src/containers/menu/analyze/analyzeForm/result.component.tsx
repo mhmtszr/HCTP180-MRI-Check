@@ -36,26 +36,18 @@ class ResultComponent extends React.Component<AboutProps> {
     private renderModalElement = (): React.ReactElement => {
         const { themedStyle, onClosePress } = this.props;
         return (
-            <View style={themedStyle.content}>
-                {this.props.success ?
-                    <View>
-                        <Text style={themedStyle.contentTitle}>MR Taraması Gereklidir!</Text>
-                        <View>
-                        <Avatar style={{ margin: 8, marginLeft: 20 }} size='large' source={require('../../../../assets/images/source/success.png')} />
-                        </View>
-                    </View>
-                    :
-                    <View>
-                        <Text style={themedStyle.contentTitle}>MR Taramasına Gerek Yoktur!</Text>
-                        <View>
-                        <Avatar style={{ margin: 8, marginLeft: 20 }} size='large' source={require('../../../../assets/images/source/failure.png')} />
-                        </View>
-                        
-                    </View>
-                }
-
-                <Button onPressOut={onClosePress} >Kapat</Button>
-            </View>
+            this.props.success ?
+                <View style={themedStyle.content}>
+                    <Text style={themedStyle.contentTitle}>MR Taraması Gereklidir!</Text>
+                    <Avatar style={{ margin: 8 }} size='large' source={require('../../../../assets/images/source/success.png')} />
+                    <Button onPressOut={onClosePress} >Kapat</Button>
+                </View>
+                :
+                <View style={themedStyle.content}>
+                    <Text style={themedStyle.contentTitle}>MR Taramasına Gerek Yoktur!</Text>
+                    <Avatar style={{ margin: 8 }} size='large' source={require('../../../../assets/images/source/failure.png')} />
+                    <Button onPressOut={onClosePress} >Kapat</Button>
+                </View>
         );
     };
 

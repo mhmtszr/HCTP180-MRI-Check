@@ -137,7 +137,7 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
         let thizz = this;
         Alert.alert(
             'Uyarı!',
-            'Bu analiz sonucunun yanlış olduğundan emin misini?',
+            'Bu analiz sonucunun yanlış olduğundan emin misiniz?',
             [
                 { text: 'Hayır', onPress: () => { }, style: 'cancel', },
                 { text: 'Evet', onPress: () => this.onYesPress(thizz, selectedItem) },

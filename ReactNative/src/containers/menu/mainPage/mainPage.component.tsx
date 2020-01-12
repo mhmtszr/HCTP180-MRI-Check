@@ -4,12 +4,12 @@ import {
   ThemeType,
   ThemedComponentProps,
 } from '@kitten/theme';
+import { Text } from 'react-native-ui-kitten/ui';
 import { MenuListItemData } from './type';
 import { Slider } from './slider/slider.component';
 import { slideHeight } from './slider/constants';
 import { View } from 'react-native';
-import { AreaChart, Grid } from 'react-native-svg-charts'
-import * as shape from 'd3-shape'
+import { BarChart, XAxis, Grid, PieChart } from 'react-native-svg-charts'
 import { Showcase } from '@src/components/common/showcase';
 
 interface ComponentProps {
@@ -19,7 +19,20 @@ interface ComponentProps {
 
 type Props = ThemedComponentProps & ComponentProps;
 
-const chartData = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+const pieChart = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
+const pieData = pieChart
+  .filter((value) => value > 0)
+  .map((value, index) => ({
+    value,
+    svg: {
+      fill: randomColor(),
+      onPress: () => console.log('press', index),
+    },
+    key: `pie-${index}`,
+  }))
+
+const xAxisData = [50, 10, 40, 95, 4, 24, 85, 91, 35, 53, 24, 50, 20, 80]
 
 class MainPageComponent extends React.Component<Props> {
 
@@ -38,16 +51,29 @@ class MainPageComponent extends React.Component<Props> {
           </Slider>
         </View>
         <Showcase>
+          <Text style={themedStyle.labelText}>Yaşlara göre hasta dağılımı</Text>
           <View style={themedStyle.menuContainer}>
-            <AreaChart
-              style={{ height: 200 }}
-              data={chartData}
-              contentInset={{ top: 30, bottom: 30 }}
-              curve={shape.curveNatural}
-              svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+            <PieChart style={{ height: 200 }} data={pieData} />
+          </View>
+
+          <Text style={themedStyle.labelText}>Günlere göre istek sayıları</Text>
+          <View style={[{ height: 200, padding: 20 }, themedStyle.menuContainer]}>
+            <BarChart
+              style={{ flex: 1 }}
+              data={xAxisData}
+              gridMin={0}
+              contentInset={{ top: 10, bottom: 10 }}
+              svg={{ stroke: 'rgb(134, 65, 244)' }}
             >
               <Grid />
-            </AreaChart>
+            </BarChart>
+            <XAxis
+              style={{ marginHorizontal: -10 }}
+              data={xAxisData}
+              formatLabel={(value, index) => index}
+              contentInset={{ left: 10, right: 10 }}
+              svg={{ fontSize: 10, fill: 'black' }}
+            />
           </View>
         </Showcase>
       </View>
@@ -64,6 +90,10 @@ export const MainPage = withStyles(MainPageComponent, (theme: ThemeType) => ({
   menuContainer: {
     flex: 1,
     margin: 10,
+  },
+  labelText: {
+    marginTop: 15,
+    color: '#8F9BB3'
   },
   contentContainer: {
     paddingHorizontal: 16,
