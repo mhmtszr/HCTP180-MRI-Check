@@ -20,10 +20,10 @@ pip3 install -r requirements.txt
 
 Mobil uygulama için gerekli yüklemeler.
 
-[nodejs](https://nodejs.org/en/download/)
-[expo](https://docs.expo.io/versions/latest/get-started/installation/)
-[andorid-sdk](https://developer.android.com/studio)
-[Genymotion](https://www.genymotion.com/fun-zone/)
+* [nodejs](https://nodejs.org/en/download/)
+* [expo](https://docs.expo.io/versions/latest/get-started/installation/)
+* [andorid-sdk](https://developer.android.com/studio)
+* [Genymotion](https://www.genymotion.com/fun-zone/)
 
 
 ### Kurulum
