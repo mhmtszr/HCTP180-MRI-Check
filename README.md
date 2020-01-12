@@ -56,7 +56,7 @@ Açılan web sayfasındaki yönergeleri izleyerek ister kendi telefonunuzdan ist
 * [KittenTrich](https://github.com/akveo/kittenTricks) - Mobil uygulama için kullandığımız arayüz.
 
 
-## Yazarlar
+## Katkıda Bulunanlar
 
 * **Sena Erdoğan** - [LinkedIn](https://www.linkedin.com/in/saadet-sena-erdo%C4%9Fan-84bb86173/)
 * **Çalgan Aygün** - [LinkedIn](https://www.linkedin.com/in/calganaygun/)
