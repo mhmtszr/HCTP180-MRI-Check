@@ -15,8 +15,8 @@ if ($query){
     $returnArray = $query; //query Array'ını kopyaladık.
     unset($returnArray["pass"]); // Kopyalanmış Array'dan şifre hash'ini çıkardık.
     $returnArray["token"] = $token; // Array'e toke'i ekledik.
-	echo json_encode($returnArray)."\n"; //Json olarak kodlayıp ekrana bastık.
-	$query = $db->prepare("INSERT INTO `tokens` (`id`, `token`, `userid`, `lasttime`) VALUES (NULL, ?, ?, ?)");
+	echo json_encode($returnArray, JSON_PRETTY_PRINT)."\n"; //Json olarak kodlayıp ekrana bastık.
+	$query = $db->prepare("INSERT INTO `utokens` (`id`, `usertoken`, `userid`, `lasttime`) VALUES (NULL, ?, ?, ?)");
 	$insert = $query->execute(array($token, $returnArray["id"], $tokenKillingTimeStamp));
 }else{
 	http_response_code(400);
