@@ -18,23 +18,32 @@ Python için gerekli kütüphaneler.
 pip3 install -r requirements.txt
 ```
 
+Mobil uygulama için gerekli yüklemeler.
+
+[nodejs](https://nodejs.org/en/download/)
+[expo](https://docs.expo.io/versions/latest/get-started/installation/)
+[andorid-sdk](https://developer.android.com/studio)
+[Genymotion](https://www.genymotion.com/fun-zone/)
+
+
 ### Kurulum
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+Öncelikle proje dizininin bulunduğu yere gidin;
 ```
-Give the example
+cd /ReactNative/<DIRECTORY>
 ```
 
-And repeat
-
+Dizinde gerekli olan npm paketlerini kurun;
 ```
-until finished
+npm install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Paketler kurulduktan sonra aşağıdaki komutu çalıştırarak expo'yu başlatın;
+```
+expo start
+```
+
+Açılan web sayfasındaki yönergeleri izleyerek ister kendi telefonunuzdan isterseniz de sanal telefonunuzdan uygulamayı deneyimleyebilirsiniz.
 
 ## Kullanılan Teknolojiler
 
@@ -44,7 +53,7 @@ End with an example of getting some data out of the system or using it for a lit
 * [Flask](https://www.palletsprojects.com/p/flask/) - ML için RESTful API'ımızı oluştururken kullandığımız Python Web Framework'ü
 * [PHP](https://www.php.net/) - RESTful API yazmak için kullandığımız dil.
 * [MySQL](https://rometools.github.io/rome/) - Verilerimizi depolamamızı sağlayan bir veri tabanı yönetim sistemi.
-* [Bootstrap](https://maven.apache.org/) - Web uygulamalarımızı geliştirmek için kullanılabilecek araçlar bütünü ve önyüz çatısı.
+* [KittenTrich](https://github.com/akveo/kittenTricks) - Mobil uygulama için kullandığımız arayüz.
 
 
 ## Yazarlar
@@ -59,8 +68,8 @@ Aynı zamanda projeye kod katkısı olan herkes [için.](https://github.com/mhmt
 
 ## Lisans
 
-
 Bu proje GNU General Public License v3.0 altında lisanslanmıştır  - Daha fazla detay için [LICENSE.md](LICENSE)
+
 
 ## Teşekkürler
 
