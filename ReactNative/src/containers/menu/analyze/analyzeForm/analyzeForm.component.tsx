@@ -98,7 +98,7 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                 bodyFormData.append('tales', this.state.thal);
                 axios({
                     method: 'post',
-                    url: 'http://mricheck.calgan.engineer/sorgu.php',
+                    url: 'http://mricheck.calgan.engineer/analyze.php',
                     data: bodyFormData,
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(function (response) {

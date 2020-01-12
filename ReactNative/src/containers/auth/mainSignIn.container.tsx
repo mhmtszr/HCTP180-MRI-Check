@@ -16,18 +16,23 @@ export class MainAuthContainer extends React.Component<NavigationStackScreenProp
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
     const { navigation } = this.props;
-    AsyncStorage.getItem('userInfo').then(result => {
-      if (result) {
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({
-            routeName: 'Menu'
-          })]
-        });
-        navigation.dispatch(resetAction)
-      }
-    });
+    setTimeout(() => {
+      AsyncStorage.getItem('userInfo').then(result => {
+        if (result) {
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({
+              routeName: 'Menu'
+            })]
+          });
+          navigation.dispatch(resetAction)
+        }
+      });
+    }, 1000);
   }
 
   private onSignInPress = (data: SignInFormData, showLoader) => {

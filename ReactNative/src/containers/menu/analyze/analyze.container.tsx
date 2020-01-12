@@ -15,12 +15,12 @@ export class AnalyzeContainer extends React.Component<NavigationStackScreenProps
 
     private navigationKey: string = 'AnalyzeContainer';
 
-    private onCreate = () => {
-        this.props.navigation.navigate('AnalyzeForm', { data: null, item: null });
+    private onCreate = (fetch) => {
+        this.props.navigation.navigate('AnalyzeForm', { data: null, item: null, fetch: fetch });
     };
 
-    private onItemSelect = (item: AnalyzeContainerData, data: AnalyzeContainerData[]) => {
-        this.props.navigation.navigate('AnalyzeForm', { data: data, item: item });
+    private onItemSelect = (item: AnalyzeContainerData, data: AnalyzeContainerData[], fetch) => {
+        this.props.navigation.navigate('AnalyzeForm', { data: data, item: item, fetch: fetch });
     };
 
     public render(): React.ReactNode {

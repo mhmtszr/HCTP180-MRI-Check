@@ -56,6 +56,7 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
           navigation.dispatch(resetAction)
         }).catch(function (response) {
           //handle error
+          SecureStorage.deleteData("loginInfo");
           SecureStorage.deleteData("userInfo");
           AsyncStorage.clear();
           const resetAction = StackActions.reset({

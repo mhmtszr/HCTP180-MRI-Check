@@ -40,12 +40,17 @@ class ResultComponent extends React.Component<AboutProps> {
                 {this.props.success ?
                     <View>
                         <Text style={themedStyle.contentTitle}>MR Taraması Gereklidir!</Text>
-                        <Avatar style={{ margin: 8 }} size='large' source={require('../../../../assets/images/source/success.png')} />
+                        <View>
+                        <Avatar style={{ margin: 8, marginLeft: 20 }} size='large' source={require('../../../../assets/images/source/success.png')} />
+                        </View>
                     </View>
                     :
                     <View>
                         <Text style={themedStyle.contentTitle}>MR Taramasına Gerek Yoktur!</Text>
-                        <Avatar style={{ margin: 8 }} size='large' source={require('../../../../assets/images/source/failure.png')} />
+                        <View>
+                        <Avatar style={{ margin: 8, marginLeft: 20 }} size='large' source={require('../../../../assets/images/source/failure.png')} />
+                        </View>
+                        
                     </View>
                 }
 

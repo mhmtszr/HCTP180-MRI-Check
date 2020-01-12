@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, ActivityIndicator, Alert,
+    View, ActivityIndicator, Alert, ScrollView, RefreshControl,
 } from 'react-native';
 import {
     ThemedComponentProps,
@@ -15,8 +15,8 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 
 interface ComponentProps {
-    onCreate: () => void;
-    onItemSelect: (item: AnalyzeContainerData, data: AnalyzeContainerData[]) => void;
+    onCreate: (onSave) => void;
+    onItemSelect: (item: AnalyzeContainerData, data: AnalyzeContainerData[], onSave) => void;
 }
 
 interface State {
@@ -34,10 +34,13 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
     };
 
     componentDidMount() {
+        this.fetchData(this);
+    }
+
+    private fetchData(thizz) {
         /**
          * Analizlerin yükleme işlemleri
          */
-        let thizz = this;
         AsyncStorage.getItem('userInfo').then(result => {
             if (result) {
                 const user = JSON.parse(result);
@@ -116,11 +119,11 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
 
     private onItemPress = (index: number) => {
         const { [index]: selectedItem } = this.state.data;
-        this.props.onItemSelect(selectedItem, this.state.data);
+        this.props.onItemSelect(selectedItem, this.state.data, this.fetchData);
     };
 
     private onCreate = (): void => {
-        this.props.onCreate();
+        this.props.onCreate(this.fetchData);
     };
 
     private onRejectionPress = (index: number): void => {
@@ -175,8 +178,21 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
         });
     }
 
+
+    // private wait(timeout) {
+    //     return new Promise(resolve => {
+    //         setTimeout(resolve, timeout);
+    //     });
+    // }
+
+    private onRefresh(fetch, thizz) {
+        fetch(thizz);
+    };
+
     public render(): React.ReactNode {
         const { themedStyle, data, ...restProps } = this.props;
+        const fetch = this.fetchData;
+        let thizz = this;
 
         return (
             !this.state.isDataLoaded ?
@@ -185,12 +201,16 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
                 </View>
                 :
                 <View style={themedStyle.content}>
-                    <LayoutList
-                        contentContainerStyle={themedStyle.listContainer}
-                        data={this.state.data}
-                        onItemPress={this.onItemPress}
-                        onRejectionPress={this.onRejectionPress}
-                    />
+                    <ScrollView refreshControl={<RefreshControl refreshing={!this.state.isDataLoaded} onRefresh={() => this.onRefresh(fetch, thizz)} />}>
+                        {
+                            <LayoutList
+                                contentContainerStyle={themedStyle.listContainer}
+                                data={this.state.data}
+                                onItemPress={this.onItemPress}
+                                onRejectionPress={this.onRejectionPress}
+                            />
+                        }
+                    </ScrollView>
                     <View style={themedStyle.buttonContainer}>
                         <Button
                             style={themedStyle.addButton}
@@ -224,6 +244,12 @@ export const Analyze = withStyles(AnaylzeComponent, (theme: ThemeType) => ({
     container: {
         flex: 1,
         backgroundColor: '#ecf0f1',
+    },
+    scrollView: {
+        flex: 1,
+        backgroundColor: 'pink',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     loading: {
         position: 'absolute',
