@@ -2,9 +2,9 @@ import React from 'react';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Settings } from './settings.component';
-import { navigateAction, log } from '@src/core/navigation';
+import { navigateAction } from '@src/core/navigation';
 import SecureStorage from '@src/core/utils/secure.store';
-import * as firebase from 'firebase';
+import axios from "axios"
 import { Alert } from 'react-native';
 import { AsyncStorage } from 'react-native';
 
@@ -28,31 +28,49 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
 
   private logout = (showLoader) => {
     const { navigation } = this.props;
-    showLoader(true, "Çıkış Yapılıyor...");
-    log({ 'message': 'Logout Successful' }, 'logout', true, showLoader);
-    firebase.auth().signOut().then(function () {
-      SecureStorage.deleteData("loginInfo");
-      SecureStorage.deleteData("userInfo");
-      AsyncStorage.clear();
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({
-          routeName: 'Auth'
-        })]
-      });
-      showLoader(false, "");
-      navigation.dispatch(resetAction)
-    }).catch(function (error) {
-      console.log(error)
-      const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({
-          routeName: 'Auth'
-        })]
-      });
-      navigation.dispatch(resetAction)
-      showLoader(false, "");
+
+    AsyncStorage.getItem('userInfo').then(result => {
+      if (result) {
+        const user = JSON.parse(result);
+        var bodyFormData = new FormData();
+        console.log(user.token)
+        bodyFormData.append('token', user.token);
+
+        showLoader(true, "Çıkış Yapılıyor...");
+        axios({
+          method: 'post',
+          url: 'http://mricheck.calgan.engineer/logout.php',
+          data: bodyFormData,
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }).then(function (response) {
+          //handle success
+          console.log(response.data);
+          SecureStorage.deleteData("loginInfo");
+          SecureStorage.deleteData("userInfo");
+          AsyncStorage.clear();
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({
+              routeName: 'Auth'
+            })]
+          });
+          showLoader(false, "");
+          navigation.dispatch(resetAction)
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+          const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({
+              routeName: 'Auth'
+            })]
+          });
+          navigation.dispatch(resetAction)
+          showLoader(false, "");
+        });
+      }
     });
+
   };
 
   public render(): React.ReactNode {

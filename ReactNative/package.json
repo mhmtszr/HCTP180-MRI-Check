@@ -30,7 +30,6 @@
     "expo-media-library": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "expo-secure-store": "^7.0.0",
-    "firebase": "^7.1.0",
     "react": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-calendars": "^1.212.0",

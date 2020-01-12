@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import * as firebase from 'firebase';
+import React from 'react';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { SignInFormData } from '@src/containers/auth';
@@ -8,7 +7,6 @@ import axios from "axios"
 import SecureStorage from '@src/core/utils/secure.store';
 import { AsyncStorage } from 'react-native';
 import { Alert } from 'react-native';
-import { log } from '@src/core/navigation/util';
 import * as Crypto from 'expo-crypto';
 
 let loader;

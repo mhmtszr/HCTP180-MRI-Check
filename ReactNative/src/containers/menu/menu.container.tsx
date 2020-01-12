@@ -1,9 +1,6 @@
 import React from 'react';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Menu } from './menu.component';
-import SecureStorage from '@src/core/utils/secure.store'
 
 export class MenuContainer extends React.Component<NavigationStackScreenProps> {
 

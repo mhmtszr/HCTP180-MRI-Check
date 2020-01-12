@@ -24,8 +24,6 @@ import {
   ValidationInput,
 } from '@src/components/common';
 import { IndicatorContext } from '@src/core/appLoader/activityIndicator.component'
-import firebase from 'firebase';
-import { StackActions, NavigationActions } from 'react-navigation';
 
 export interface ChangePasswordFormData {
   oldPassword: string;

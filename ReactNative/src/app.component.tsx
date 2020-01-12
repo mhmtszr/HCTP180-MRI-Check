@@ -19,7 +19,6 @@ import {
   ThemeStore,
 } from '@src/core/themes';
 import { ActivityIndicatorComponent, IndicatorContext } from '@src/core/appLoader/activityIndicator.component';
-import * as timerWorkaround from '@src/core/utils/timer.workaround';
 
 const images: ImageRequireSource[] = [
   require('./assets/images/source/splash.png'),
@@ -81,11 +80,6 @@ export default class App extends React.Component<{}, State> {
   };
 
   public render(): React.ReactNode {
-
-    /**
-     * Firebase "Setting a timer for a long period of time, i.e. multiple minutes" hatası için;
-     */
-    timerWorkaround;
 
     const contextValue: ThemeContextType = {
       currentTheme: this.state.theme,

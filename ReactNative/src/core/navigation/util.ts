@@ -1,5 +1,4 @@
 import Constants from 'expo-constants';
-import * as firebase from 'firebase';
 import { Alert, AsyncStorage } from 'react-native';
 
 export interface NavigationRouteState {
@@ -35,40 +34,25 @@ export const isRootRoute = (index: number): boolean => {
 };
 
 export const log = (message, functionName: string, success: boolean, loader) => {
-  let currentUser = firebase.auth().currentUser;
-  // let user = currentUser ? {
-  //   'createdAt': currentUser['createdAt'],
-  //   'displayName': currentUser['displayName'],
-  //   'email': currentUser['email'],
-  //   'lastLoginAt': currentUser['lastLoginAt'],
-  // } : { 'userName': 'Anonymous' };
-  // console.log(user)
-  AsyncStorage.getItem('triedUsername').then(result => {
 
-    let annoymous = result ? JSON.parse(result) : 'Anonymous'
+  // AsyncStorage.getItem('triedUsername').then(result => {
 
-    let log = {
-      'time': new Date,
-      'functionName': functionName,
-      'message': message,
-      'success': success,
-      'deviceId': Constants.deviceId,
-      'deviceName': Constants.deviceName,
-      'deviceYearClass': Constants.deviceYearClass,
-      'nativeAppVersion': Constants.nativeAppVersion,
-      'nativeBuildVersion': Constants.nativeBuildVersion,
-      'platform': Constants.platform,
-      'user': currentUser ? currentUser['email'] : annoymous
-    }
+  //   let annoymous = result ? JSON.parse(result) : 'Anonymous'
 
-    firebase.firestore().collection('log').doc().set(log).then(function () {
+  //   let log = {
+  //     'time': new Date,
+  //     'functionName': functionName,
+  //     'message': message,
+  //     'success': success,
+  //     'deviceId': Constants.deviceId,
+  //     'deviceName': Constants.deviceName,
+  //     'deviceYearClass': Constants.deviceYearClass,
+  //     'nativeAppVersion': Constants.nativeAppVersion,
+  //     'nativeBuildVersion': Constants.nativeBuildVersion,
+  //     'platform': Constants.platform,
+  //     'user': currentUser ? currentUser['email'] : annoymous
+  //   }
 
-    }).catch(function (err) {
-      Alert.alert('Hata!', 'Log yazarken hata! ' + err, [{
-        text: 'Tamam', onPress: () => loader ? console.log('OK Pressed in Log') : loader(false, "")
-      }]);
-    });
-
-  });
+  // });
 
 }
