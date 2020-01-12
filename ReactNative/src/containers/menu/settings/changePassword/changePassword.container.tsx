@@ -2,7 +2,7 @@ import React from 'react';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { ChangePassword, ChangePasswordFormData } from './changePassword.component';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import SecureStorage from '@src/core/utils/secure.store';
 import axios from "axios"
 
@@ -30,7 +30,7 @@ export class ChangePasswordContainer extends React.Component<NavigationStackScre
     // user.reauthenticateWithCredential(credential).then(function () {
     //   user.updatePassword(thizz.state.formData.newPassword).then(function () {
     //     Alert.alert('Başarı!', 'Şifreniz başarıyla değiştirildi.', [{
-    //       text: 'Tamam', onPress: () => { console.log('OK Pressed') }
+    //       text: 'Tamam', onPress: () => {}
     //     }]);
     //     showLoader(false, "")
     //     thizz.logout(showLoader);
@@ -55,7 +55,6 @@ export class ChangePasswordContainer extends React.Component<NavigationStackScre
       if (result) {
         const user = JSON.parse(result);
         var bodyFormData = new FormData();
-        console.log(user.token)
         bodyFormData.append('token', user.token);
 
         showLoader(true, "Çıkış Yapılıyor...");
@@ -66,7 +65,6 @@ export class ChangePasswordContainer extends React.Component<NavigationStackScre
           headers: { 'Content-Type': 'multipart/form-data' }
         }).then(function (response) {
           //handle success
-          console.log(response.data);
           SecureStorage.deleteData("loginInfo");
           SecureStorage.deleteData("userInfo");
           AsyncStorage.clear();
@@ -80,7 +78,7 @@ export class ChangePasswordContainer extends React.Component<NavigationStackScre
           navigation.dispatch(resetAction)
         }).catch(function (response) {
           //handle error
-          console.log(response);
+          Alert.alert('Hata!', 'Bir sorun oluştu: ' + response, [{ text: 'Tamam', onPress: () => showLoader(false, "") }]);
           const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({

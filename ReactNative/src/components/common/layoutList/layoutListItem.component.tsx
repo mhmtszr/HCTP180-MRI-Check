@@ -3,6 +3,7 @@ import {
   ListItem,
   ListItemProps,
   Text,
+  Button,
 } from '@kitten/ui';
 import {
   ThemedComponentProps,
@@ -11,8 +12,11 @@ import {
 } from '@kitten/theme';
 import { LayoutListItemData } from './type';
 import { textStyle } from '../style';
+import { View } from 'react-native';
+import { RejectIconFill } from '@src/assets/icons';
 
 interface ComponentProps {
+  onRejectionPress: (data) => void;
   data: LayoutListItemData;
 }
 
@@ -27,16 +31,32 @@ class LayoutListItemComponent extends React.Component<LayoutListItemProps> {
       <ListItem
         {...restProps}
         style={[themedStyle.container, style]}>
-        <Text
-          style={textStyle.subtitle}
-          category='s1'>
-          {data.title}
-        </Text>
-        <Text
-          style={textStyle.paragraph}
-          appearance='hint'>
-          {data.description}
-        </Text>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+
+          <View style={{ flex: 1, flexDirection: "column" }}>
+            <Text
+              style={textStyle.subtitle}
+              category='s1'>
+              {data.title}
+            </Text>
+            <Text
+              style={textStyle.paragraph}
+              appearance='hint'>
+              {data.description}
+            </Text>
+          </View>
+          <View style={themedStyle.buttonContainer}>
+            <Button
+              style={themedStyle.button}
+              textStyle={textStyle.button}
+              status='danger'
+              size='medium'
+              icon={RejectIconFill}
+              onPress={this.props.onRejectionPress}>
+              {}
+            </Button>
+          </View>
+        </View>
       </ListItem>
     );
   }
@@ -54,4 +74,7 @@ export const LayoutListItem = withStyles(LayoutListItemComponent, (theme: ThemeT
     marginTop: 4,
     ...textStyle.subtitle,
   },
+  buttonContainer: {
+    alignItems: 'flex-end'
+  }
 }));

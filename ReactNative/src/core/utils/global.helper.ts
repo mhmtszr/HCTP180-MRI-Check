@@ -1,5 +1,5 @@
 // import { ActivityIndicatorProps } from '@src/core/appLoader/activityIndicator.component';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 
 
 const GlobalHelper = {
@@ -14,13 +14,13 @@ const GlobalHelper = {
 
     retriveData: async function (key) {
         try {
-            const retrievedItem =  await AsyncStorage.getItem(key);
+            const retrievedItem = await AsyncStorage.getItem(key);
             const item = JSON.parse(retrievedItem);
             return item;
-          } catch (error) {
-            console.log(error.message);
-          }
-          return
+        } catch (error) {
+            Alert.alert('Hata!', 'Bir sorun oluştu: ' + error.message, [{ text: 'Tamam', onPress: () => { } }]);
+        }
+        return
         return await AsyncStorage.getItem(key);
     },
 

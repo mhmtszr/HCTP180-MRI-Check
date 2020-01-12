@@ -20,6 +20,7 @@ interface ComponentProps extends ListProps {
   data: LayoutListItemData[];
   renderItem?: (info: ListItemElementInfo) => void;
   onItemPress: (index: number) => void;
+  onRejectionPress: (index: number) => void;
 }
 
 export type LayoutListProps = ThemedComponentProps & ComponentProps;
@@ -33,12 +34,17 @@ class LayoutListComponent extends React.Component<LayoutListProps> {
     this.props.onItemPress(index);
   };
 
+  private onRejectionPress = (index: number) => {
+    this.props.onRejectionPress(index);
+  };
+
   private renderItem = (info: ListItemElementInfo): ListItemElement => {
     return (
       <LayoutListItem
         style={this.props.themedStyle.item}
         data={info.item}
         onPress={this.onItemPress}
+        onRejectionPress={() => this.onRejectionPress(info.index)}
       />
     );
   };

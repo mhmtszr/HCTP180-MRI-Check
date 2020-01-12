@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, ActivityIndicator,
+    View, ActivityIndicator, Alert,
 } from 'react-native';
 import {
     ThemedComponentProps,
@@ -33,8 +33,10 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
         isDataLoaded: false
     };
 
-    componentWillMount() {
-        console.log("Yükleme işlemleri")
+    componentDidMount() {
+        /**
+         * Analizlerin yükleme işlemleri
+         */
         let thizz = this;
         AsyncStorage.getItem('userInfo').then(result => {
             if (result) {
@@ -52,26 +54,26 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
                     if (response.data) {
                         let constructedData: AnalyzeContainerData[] = [];
                         response.data.forEach(element => {
-                            console.log(element)
                             let constructed: AnalyzeContainerData = {
-                                title: 'Add New Card',
-                                description: new Date(parseInt(element.time) * 1000).toDateString(),
+                                id: element.id,
+                                title: element.age + ' Yaş ' + (element.sex == "0" ? "Kadın" : "Erkek"),
+                                description: thizz.formatDate(new Date(parseInt(element.time) * 1000)),
                                 image: null,
                                 route: 'AnalyzeForm',
                                 previouseNavigation: 'Analyze',
                                 age: element.age,
-                                sex: element.sex,
-                                chestPainType: element.chest,
+                                sex: parseInt(element.sex),
+                                chestPainType: parseInt(element.chest),
                                 restingBloodPressure: element.rbp,
                                 serumCholestrol: element.sc,
                                 fastingBloodSugar: element.fbs,
-                                restingECG: element.ecg,
+                                restingECG: parseInt(element.ecg),
                                 maxHeartRate: element.mxhr,
-                                exerciseInducedAngina: element.angina,
+                                exerciseInducedAngina: parseInt(element.angina),
                                 stDepression: element.depression,
-                                peakExerciseSTSegment: element.peakexercise,
-                                numberOfMajorVessel: element.floros,
-                                thal: element.tales,
+                                peakExerciseSTSegment: parseInt(element.peakexercise),
+                                numberOfMajorVessel: parseInt(element.floros),
+                                thal: parseInt(element.tales),
                             };
                             constructedData.push(constructed);
                         });
@@ -81,10 +83,35 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
                 }).catch(function (response) {
                     //handle error
                     thizz.setState({ isDataLoaded: true })
-                    console.log(response);
+                    Alert.alert('Hata!', 'Bir sorun oluştu: ' + response, [{ text: 'Tamam', onPress: () => { } }]);
                 });
             }
         });
+    }
+
+    /**
+     * Tarihin istenilen formata çevrilmesi
+     */
+    private formatDate(date, saat = true) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+
+        min = min.toString();
+        if (min.length == 1)
+            min = "0" + min;
+
+        var sec = date.getSeconds();
+
+        var formatted = '';
+        if (saat) {
+            formatted = day + '.' + month + '.' + year + ' ' + hour + ':' + min + ':' + sec;
+        } else {
+            formatted = day + '.' + month + '.' + year;
+        }
+        return formatted
     }
 
     private onItemPress = (index: number) => {
@@ -95,6 +122,58 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
     private onCreate = (): void => {
         this.props.onCreate();
     };
+
+    private onRejectionPress = (index: number): void => {
+
+        /**
+         * Analizin sonucu olumsuz ise doktorun geri bildirim 
+         * sağlayarak ileriki analizler iyileştimek için yapılan
+         * düzenleme
+         */
+        const { [index]: selectedItem } = this.state.data;
+        let thizz = this;
+        Alert.alert(
+            'Uyarı!',
+            'Bu analiz sonucunun yanlış olduğundan emin misini?',
+            [
+                { text: 'Hayır', onPress: () => { }, style: 'cancel', },
+                { text: 'Evet', onPress: () => this.onYesPress(thizz, selectedItem) },
+            ],
+            { cancelable: true },
+        );
+
+    };
+
+    private onYesPress(thizz, selectedItem) {
+        AsyncStorage.getItem('userInfo').then(result => {
+            if (result) {
+                const user = JSON.parse(result);
+                var bodyFormData = new FormData();
+                bodyFormData.append('token', user.token);
+                bodyFormData.append('userid', user.id);
+                bodyFormData.append('analyzeid', selectedItem.id);
+                axios({
+                    method: 'post',
+                    url: 'http://mricheck.calgan.engineer/feedback.php',
+                    data: bodyFormData,
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                }).then(function (response) {
+                    //handle success
+                    if (response.data) {
+                        Alert.alert('Başarı!', 'İşleminiz başarıyla gerçekleştirildi.', [{
+                            text: 'Tamam', onPress: () => { }
+                        }]);
+                    }
+                }).catch(function (response) {
+                    //handle error
+                    thizz.setState({ isDataLoaded: true })
+                    Alert.alert('Hata!', 'Bir sorun oluştu: ' + response, [{
+                        text: 'Tamam', onPress: () => { }
+                    }]);
+                });
+            }
+        });
+    }
 
     public render(): React.ReactNode {
         const { themedStyle, data, ...restProps } = this.props;
@@ -110,6 +189,7 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
                         contentContainerStyle={themedStyle.listContainer}
                         data={this.state.data}
                         onItemPress={this.onItemPress}
+                        onRejectionPress={this.onRejectionPress}
                     />
                     <View style={themedStyle.buttonContainer}>
                         <Button
@@ -118,7 +198,7 @@ class AnaylzeComponent extends React.Component<AnalyzeProps> {
                             size='large'
                             onPress={this.onCreate}>
                             Yeni Analiz Ekle
-                    </Button>
+                        </Button>
                     </View>
                 </View>
         );

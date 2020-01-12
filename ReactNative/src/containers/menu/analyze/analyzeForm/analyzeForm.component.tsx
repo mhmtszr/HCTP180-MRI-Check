@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, AsyncStorage, 
+    View, AsyncStorage, Alert,
 } from 'react-native';
 import {
     ThemedComponentProps,
@@ -8,7 +8,7 @@ import {
     withStyles,
 } from '@kitten/theme';
 import axios from "axios"
-import { Button } from 'react-native-ui-kitten/ui';
+import { Button, Text } from 'react-native-ui-kitten/ui';
 import { AnalyzeContainerData } from '../type';
 import { textStyle, ValidationInput } from '@src/components/common';
 import { NumberValidator } from '@src/core/validators';
@@ -72,11 +72,12 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
     }
 
     private onSave = (loader): void => {
+        /**
+         * Girilen değerlerin sunucuya gönderilmesi ve analizi
+         */
         loader(true, 'Kaydediliyor...');
-
         let thizz = this;
         AsyncStorage.getItem('userInfo').then(result => {
-            console.log(result)
             if (result) {
                 const user = JSON.parse(result);
                 var bodyFormData = new FormData();
@@ -102,14 +103,13 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 }).then(function (response) {
                     //handle success
-                    console.log(response.data);
                     loader(false, "");
                     const prediction = response.data.prediction;
                     thizz.setState({ success: prediction == "0" ? false : true });
                     thizz.setState({ isModalVisible: true });
                 }).catch(function (response) {
                     //handle error
-                    console.log(response);
+                    Alert.alert('Hata!', 'Bir sorun oluştu: ' + response, [{ text: 'Tamam', onPress: () => loader(false, "") }]);
                     loader(false, "");
                 });
             } else {
@@ -139,24 +139,26 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                         <ValidationInput
                             disabled={disabled}
                             validator={NumberValidator}
-                            placeholder={'Yaş'}
+                            label={'Yaş'}
                             value={this.state.age}
                             onChangeText={(val) => this.setState({ age: val })}
                         />
+
+                        <Text style={themedStyle.labelText}>Cinsiyet</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Cinsiyet...', value: null }}
                                 disabled={disabled}
                                 value={this.state.sex}
                                 onValueChange={(value) => this.onSelectionChange({ sex: value })}
                                 items={[{ value: 1, label: 'Erkek' }, { value: 0, label: 'Kadın' }]}
                             />
                         </View>
+
+                        <Text style={themedStyle.labelText}>Ağrı türü</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Ağrı türü...', value: null }}
                                 disabled={disabled}
                                 value={this.state.chestPainType}
                                 onValueChange={(value) => this.setState({ chestPainType: value })}
@@ -164,88 +166,99 @@ class AnaylzeFormComponent extends React.Component<AnalyzeProps> {
                                 { value: 3, label: 'Anjinal Olmayan Ağrı' }, { value: 4, label: 'Asimptotik' }]}
                             />
                         </View>
+
                         <ValidationInput
                             disabled={disabled}
                             validator={NumberValidator}
-                            placeholder={'Tansiyon (mmHg)'}
+                            label={'Tansiyon (mmHg)'}
                             value={this.state.restingBloodPressure}
                             onChangeText={(val) => this.setState({ restingBloodPressure: val })}
                         />
+
                         <ValidationInput
                             disabled={disabled}
                             validator={NumberValidator}
-                            placeholder={'Serum Kolestrol (mg/dl)'}
+                            label={'Serum Kolestrol (mg/dl)'}
                             value={this.state.serumCholestrol}
                             onChangeText={(val) => this.setState({ serumCholestrol: val })}
                         />
+
+                        <Text style={themedStyle.labelText}>Açlık Kan Şekeri > 120mg/dl?</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Açlık Kan Şekeri > 120mg/dl?', value: null }}
                                 disabled={disabled}
                                 value={this.state.fastingBloodSugar}
                                 onValueChange={(value) => this.setState({ fastingBloodSugar: value })}
                                 items={[{ value: 0, label: 'Hayır' }, { value: 1, label: 'Evet' }]}
                             />
                         </View>
+
+                        <Text style={themedStyle.labelText}>EKG</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'EKG', value: null }}
                                 disabled={disabled}
                                 value={this.state.restingECG}
                                 onValueChange={(value) => this.setState({ restingECG: value })}
                                 items={[{ value: 0, label: 'Normal' }, { value: 1, label: 'ST-T Dalga Anormalliği' }, { value: 2, label: 'Sol Ventrikül Hiperrofisi' }]}
                             />
                         </View>
+
                         <ValidationInput
                             disabled={disabled}
                             validator={NumberValidator}
-                            placeholder={'Maksimum Kalk Atış Hızı'}
+                            label={'Maksimum Kalk Atış Hızı'}
                             value={this.state.maxHeartRate}
                             onChangeText={(val) => this.setState({ maxHeartRate: val })}
                         />
+
+                        <Text style={themedStyle.labelText}>Egzersize Bağlı Anjin</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Egzersize Bağlı Anjin', value: null }}
                                 disabled={disabled}
                                 value={this.state.exerciseInducedAngina}
                                 onValueChange={(value) => this.setState({ exerciseInducedAngina: value })}
                                 items={[{ value: 0, label: 'Hayır' }, { value: 1, label: 'Evet' }]}
                             />
                         </View>
+
                         <ValidationInput
+                            style={themedStyle.validationInput}
                             disabled={disabled}
                             validator={NumberValidator}
-                            placeholder={'ST Depresyonu'}
+                            label={'ST Depresyonu'}
                             value={this.state.stDepression}
                             onChangeText={(val) => this.setState({ stDepression: val })}
                         />
+
+                        <Text style={themedStyle.labelText}>En Yüksek Egzersiz ST Segmenti</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'En Yüksek Egzersiz ST Segmenti', value: null }}
                                 disabled={disabled}
                                 value={this.state.peakExerciseSTSegment}
                                 onValueChange={(value) => this.setState({ peakExerciseSTSegment: value })}
                                 items={[{ value: 1, label: 'Yukarı Doğru' }, { value: 2, label: 'Düz' }, { value: 3, label: 'Aşağı Doğru' }]}
                             />
                         </View>
+
+                        <Text style={themedStyle.labelText}>Floroskopi ile Renklendirilmiş Ana Damarların Sayısı</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Floroskopi ile Renklendirilmiş Ana Damarların Sayısı', value: null }}
                                 disabled={disabled}
                                 value={this.state.numberOfMajorVessel}
                                 onValueChange={(value) => this.setState({ numberOfMajorVessel: value })}
                                 items={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]}
                             />
                         </View>
+
+                        <Text style={themedStyle.labelText}>Thalsemi</Text>
                         <View style={themedStyle.pickerContainer}>
                             <RNPickerSelect
                                 style={themedStyle.picker}
-                                placeholder={{ label: 'Thalsemi', value: null }}
                                 disabled={disabled}
                                 value={this.state.thal}
                                 onValueChange={(value) => this.setState({ thal: value })}
@@ -296,8 +309,15 @@ export const AnalyzeForm = withStyles(AnaylzeFormComponent, (theme: ThemeType) =
         backgroundColor: theme['background-basic-color-1'],
     },
     picker: {
-        marginBottom: 5,
+        marginBottom: 7,
         padding: 10,
+    },
+    validationInput: {
+        marginBottom: 7,
+    },
+    labelText: {
+        marginBottom: 4,
+        color: '#8F9BB3'
     },
     pickerContainer: {
         borderWidth: 1,

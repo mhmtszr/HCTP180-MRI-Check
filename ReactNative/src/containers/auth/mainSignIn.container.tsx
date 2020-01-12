@@ -50,7 +50,6 @@ export class MainAuthContainer extends React.Component<NavigationStackScreenProp
         headers: { 'Content-Type': 'multipart/form-data' }
       }).then(function (response) {
         //handle success
-        console.log(response.data);
         SecureStorage.storeData('loginInfo', JSON.stringify(response.data));
         let user = {
           id: response.data.id,
@@ -77,7 +76,6 @@ export class MainAuthContainer extends React.Component<NavigationStackScreenProp
       })
         .catch(function (response) {
           //handle error
-          console.log(response);
           let errorCode = response.code;
           let errorMessage = response.message;
           errorMessage = "Kullanıcı adı veya şifre hatalıdır! Bilgileriniz kontrol edip tekrar deneyiniz."

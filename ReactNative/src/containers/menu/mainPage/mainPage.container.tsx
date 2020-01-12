@@ -12,22 +12,10 @@ export class MainPageContainer extends React.Component<NavigationStackScreenProp
 
   private onItemSelect = (index: number) => {
     const { [index]: selectedItem } = this.data;
-
-    if (selectedItem.route === "Payment") {
-      Alert.alert(
-        'Bilgi!',
-        'Ödemeniz bulunmamaktadır!',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ]
-      );
-    } else {
-      this.props.navigation.navigate({
-        key: this.navigationKey,
-        routeName: selectedItem.route,
-      });
-    }
-
+    this.props.navigation.navigate({
+      key: this.navigationKey,
+      routeName: selectedItem.route,
+    });
   };
 
   public render(): React.ReactNode {

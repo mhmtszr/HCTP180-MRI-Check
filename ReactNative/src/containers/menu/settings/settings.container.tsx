@@ -19,7 +19,7 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
       'Uyarı!',
       'Çıkış yapmak istediğinizden emin misiniz?',
       [
-        { text: 'Hayır', onPress: () => console.log('Cancel Pressed'), style: 'cancel', },
+        { text: 'Hayır', onPress: () => { }, style: 'cancel', },
         { text: 'Evet', onPress: () => this.logout(showLoader) },
       ],
       { cancelable: true },
@@ -33,7 +33,6 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
       if (result) {
         const user = JSON.parse(result);
         var bodyFormData = new FormData();
-        console.log(user.token)
         bodyFormData.append('token', user.token);
 
         showLoader(true, "Çıkış Yapılıyor...");
@@ -44,7 +43,6 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
           headers: { 'Content-Type': 'multipart/form-data' }
         }).then(function (response) {
           //handle success
-          console.log(response.data);
           SecureStorage.deleteData("loginInfo");
           SecureStorage.deleteData("userInfo");
           AsyncStorage.clear();
@@ -58,14 +56,16 @@ export class SettingsContainer extends React.Component<NavigationStackScreenProp
           navigation.dispatch(resetAction)
         }).catch(function (response) {
           //handle error
-          console.log(response);
+          SecureStorage.deleteData("userInfo");
+          AsyncStorage.clear();
           const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({
               routeName: 'Auth'
             })]
           });
-          navigation.dispatch(resetAction)
+          navigation.dispatch(resetAction);
+          Alert.alert('Hata!', 'Bir sorun oluştu: ' + response, [{ text: 'Tamam', onPress: () => showLoader(false, "") }]);
           showLoader(false, "");
         });
       }

@@ -585,6 +585,14 @@ export const StarIconFill = (style: StyleProp<ImageStyle>): IconElement => {
   return Icon(source, style);
 };
 
+export const RejectIconFill = (style: StyleProp<ImageStyle>): IconElement => {
+  const source: IconSource = {
+    imageSource: require('./reject.png'),
+  };
+
+  return Icon(source, style);
+};
+
 export const StarIconOutline = (style: StyleProp<ImageStyle>): IconElement => {
   const source: IconSource = {
     imageSource: require('./eva/star-outline.png'),
