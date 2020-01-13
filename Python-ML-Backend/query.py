@@ -5,7 +5,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.metrics import r2_score
 
 app = Flask(__name__)
-df = pd.read_csv("cleveland_prepared.csv",sep = ",")
+df = pd.read_csv("heart_data.csv",sep = ",")
 
 df = df.dropna()
 

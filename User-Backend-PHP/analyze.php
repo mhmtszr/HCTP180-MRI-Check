@@ -30,7 +30,8 @@ if(checkToken($token, $userid)){// Token kontrol edildi doğruysa işleme başla
 
 	//MRICheck ML serverına CURL ile bağlanıp sorgu gerçekleştirilecek.
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "http://ml_server:5000/MRICheck"); //MRICheck Serverına bağlantı sağlandı.
+	curl_setopt($ch, CURLOPT_URL, "http://17.0.0.1:5000/MRICheck"); //MRICheck Serverına bağlantı sağlandı.
+	//Güvenlik nedeniyle MRICheck ML Sunucusu sadece yerel bağlantıya açık.
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, true);
 
