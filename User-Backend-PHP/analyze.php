@@ -53,8 +53,7 @@ if(checkToken($token, $userid)){// Token kontrol edildi doğruysa işleme başla
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	$output = curl_exec($ch);
 	curl_close($ch); //POST gönderildi ve gelen veri alındı.
-	$outJson = json_encode(array("prediction" => $output), JSON_PRETTY_PRINT); // Gelen veri JSON olarak ekrana yazdırıldı.
-	echo $outJson;
+	echo $output;
 }else{
 	http_response_code(400); // Geçersiz istek gönderildi. Bu yüzden 400 kodu döndürüldü.
 	die;
