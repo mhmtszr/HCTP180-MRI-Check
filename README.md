@@ -1,24 +1,24 @@
 # MRI Check
 
-Kişinin önceki MRI sonuçları, kan değerleri, doktoru tarafından kaydedilen şikayet ve bulguları  ve demografik özellikleri göz önüne alınarak teşhis için MR’a gerek olup olmadığı konusunda doktora yardımcı ikinci bir görüş sağlar. 
+It provides a second opinion to doctor about whether an MRI is needed or not by taking person's previous MRI results, blood values, complaints and findings recorded by his/her doctor into consideration .
 
 
-## Başlarken
+## Starting
 
-PHP API'ı çalıştırmak için Apache,PHP,Mysql. 
+To run PHP API Apache, PHP, Mysql.
 
-React Native'de yazılmış cross-platform uygulama için gerekli paketlerin ve react'ın kurulumu yapılmalıdır.
+Needed packages and react must be installed for cross-platform app which was developed with ReactNative.
 
 
-### Gereksinimler
+### Requirements
 
-Python için gerekli kütüphaneler.
+Needed libraries for Python.
 
 ```
 pip3 install -r requirements.txt
 ```
 
-Mobil uygulama için gerekli yüklemeler.
+Needed loading for mobile app.
 
 * [nodejs](https://nodejs.org/en/download/)
 * [expo](https://docs.expo.io/versions/latest/get-started/installation/)
@@ -26,53 +26,53 @@ Mobil uygulama için gerekli yüklemeler.
 * [Genymotion](https://www.genymotion.com/fun-zone/)
 
 
-### Kurulum
+### Setup
 
-Öncelikle proje dizininin bulunduğu yere gidin;
+Firstly, go to where project directory is located;
 ```
 cd /ReactNative/<DIRECTORY>
 ```
 
-Dizinde gerekli olan npm paketlerini kurun;
+Setup needed npm packages in the directory;
 ```
 npm install
 ```
 
-Paketler kurulduktan sonra aşağıdaki komutu çalıştırarak expo'yu başlatın;
+After packages are installed, start expo by using the command below;
 ```
 expo start
 ```
 
-Açılan web sayfasındaki yönergeleri izleyerek ister kendi telefonunuzdan isterseniz de sanal telefonunuzdan uygulamayı deneyimleyebilirsiniz.
+By following the insturctions on the web page opened you can try the app on your mobile phone or your virtual phone. 
 
-## Kullanılan Teknolojiler
+## Technology Used
 
-* [React Native](https://facebook.github.io/react-native/) - Cross-platform mobil uygulama geliştirmemize olanak sağlayan bir framework.
-* [Python](https://www.python.org/) - Makine Öğrenmesi modelimizi oluşturmak için kullanıldığımız bir programlama dili.
-* [Scikit-Sklearn](https://scikit-learn.org/stable/) - Python için kullanılan ML kütüphanesi.
-* [Flask](https://www.palletsprojects.com/p/flask/) - ML için RESTful API'ımızı oluştururken kullandığımız Python Web Framework'ü
-* [PHP](https://www.php.net/) - RESTful API yazmak için kullandığımız dil.
-* [MySQL](https://rometools.github.io/rome/) - Verilerimizi depolamamızı sağlayan bir veri tabanı yönetim sistemi.
-* [KittenTrich](https://github.com/akveo/kittenTricks) - Mobil uygulama için kullandığımız arayüz.
+* [React Native](https://facebook.github.io/react-native/) - A framework that enabled us to develop cross_platform mobile app.
+* [Python](https://www.python.org/) - A programming language which we used for to create our Machine Learning model.
+* [Scikit-Sklearn](https://scikit-learn.org/stable/) - An ML library for Python.
+* [Flask](https://www.palletsprojects.com/p/flask/) - A Python Web Framework while we used creating RESTFul API for ML.
+* [PHP](https://www.php.net/) - A language that we used to write RESTful API.
+* [MySQL](https://rometools.github.io/rome/) - A database management system ensures us to store data.
+* [KittenTrich](https://github.com/akveo/kittenTricks) - An interface that we used for mobile app.
 
 
 ## Katkıda Bulunanlar
 
-* **Sena Erdoğan** - [LinkedIn](https://www.linkedin.com/in/saadet-sena-erdo%C4%9Fan-84bb86173/)
+* **Sena Erdoğan** - [LinkedIn](https://www.linkedin.com/in/saadetsenaerdogan)
 * **Çalgan Aygün** - [LinkedIn](https://www.linkedin.com/in/calganaygun/)
 * **İzzet Kılıç** -  [LinkedIn](https://www.linkedin.com/in/izzetkilic/)
 * **Mehmet Sezer** - [LinkedIn](https://www.linkedin.com/in/mehmetsezerr/)
 
-Aynı zamanda projeye kod katkısı olan herkes [için.](https://github.com/mhmtszr/HCTP180-MRI-Check/graphs/contributors)
+To see everyone who contributed code for the project(https://github.com/mhmtszr/HCTP180-MRI-Check/graphs/contributors)
 
 
-## Lisans
+## License
 
-Bu proje GNU General Public License v3.0 altında lisanslanmıştır  - Daha fazla detay için [LICENSE.md](LICENSE)
+This project is licensed under GNU General Public License v3.0 - For further details [LICENSE.md](LICENSE)
 
 
-## Teşekkürler
+## Thanks
 
-* Bize veri sağlayan tüm kurumlara.
+* All institutions who provide us data.
 
 
