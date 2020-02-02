@@ -56,7 +56,7 @@ By following the insturctions on the web page opened you can try the app on your
 * [KittenTrich](https://github.com/akveo/kittenTricks) - An interface that we used for mobile app.
 
 
-## Katkıda Bulunanlar
+## Contributors
 
 * **Sena Erdoğan** - [LinkedIn](https://www.linkedin.com/in/saadetsenaerdogan)
 * **Çalgan Aygün** - [LinkedIn](https://www.linkedin.com/in/calganaygun/)
